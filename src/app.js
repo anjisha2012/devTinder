@@ -2,20 +2,19 @@ const express = require('express');
 
 const app = express();
 
-app.get("/user" , (req,res) => {
-    res.send({firstName: "Anjali" , lastName: "Singh"})
+const {adminAuth} = require("./middlewares/auth");
+
+app.use("/admin" , adminAuth);
+
+app.get("/admin/getAllData" , (req,res, next) => {
+  res.send("all data sent")
 })
 
-// app.use("/test" ,(req, res)=>{
-//    res.send("hello from server");
-// })
+app.delete("/admin/deleteData" , (req,res, next) => {
+    res.send("deleted a user")
+})
 
-app.post("/user" , (req,res) => {
-    res.send("data successfully send to the user");
-})
-app.delete("/user" , (req,res) => {
-    res.send("deleted");
-})
+
 app.listen(3000, ()=>{
     console.log("listening....")
 });
